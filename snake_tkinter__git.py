@@ -1,4 +1,4 @@
-## Python Snake Game : from the Bro Code tutorial at https://www.youtube.com/watch?v=bfRwxS5d0SI
+### Python Snake Game : from the Bro Code tutorial at https://www.youtube.com/watch?v=bfRwxS5d0SI
 
 
 from tkinter import * 
@@ -23,8 +23,8 @@ class Snake:
 	
 	def __init__(self): 
 		self.body_size = BODY_PARTS
-		self.coordinates = [] 											# list of square coordinates
-		self.squares = [] 												# list of square graphics on canvas
+		self.coordinates = [] 								# list of square coordinates
+		self.squares = [] 								# list of square graphics on canvas
 		
 		# Creating a List of Coordinates 
 		for i in range(0, BODY_PARTS):
@@ -43,7 +43,7 @@ class Food:
 	def __init__(self):
 		
 		# Placing Food-object randomly 
-			# Picking a random position[x,y] within the game-canvas-measures			# randint() chooses randomly from the total number of possible SPACE_SIZEs (times the SPACE_SIZE to get a WIDTH/HEIGHT that is a multiple of the Food-size)
+			# Picking a random position[x,y] within the game-canvas-measures		# randint() chooses randomly from the total number of possible SPACE_SIZEs (times the SPACE_SIZE to get a WIDTH/HEIGHT that is a multiple of the Food-size)
 		x = random.randint(0, (GAME_WIDTH/SPACE_SIZE)-1) * SPACE_SIZE
 		y = random.randint(0, (GAME_HEIGHT/SPACE_SIZE)-1) * SPACE_SIZE
 		
@@ -85,10 +85,10 @@ def next_turn(snake, food):
 		global score
 		score += 1
 		label.config(text="Score:{}".format(score))
-		canvas.delete("food")											# Delete the food-Object from the GameCanvas (per "food"-tag)
-		food = Food()													# Create a new food-Object
-	else:																# Only Delete the last body part of our snake if it didn't eat a food object
-	# Delete last BodyPart of our Snake									# Simulates the movement of the snake (part2)
+		canvas.delete("food")								# Delete the food-Object from the GameCanvas (per "food"-tag)
+		food = Food()									# Create a new food-Object
+	else:											# Only Delete the last body part of our snake if it didn't eat a food object
+	# Delete last BodyPart of our Snake							# Simulates the movement of the snake (part2)
 		del snake.coordinates[-1]
 		canvas.delete(snake.squares[-1])
 		del snake.squares[-1]
@@ -103,10 +103,10 @@ def next_turn(snake, food):
 	
 def change_direction(new_direction):
 	
-	global direction													# accessing the old direction
+	global direction									# accessing the old direction
 	
 	if new_direction == 'left':
-		if direction != 'right':										# old direction must not be 180° of the new (rules of the game)
+		if direction != 'right':							# old direction must not be 180° of the new (rules of the game)
 			direction = new_direction
 	if new_direction == 'right':	
 		if direction != 'left': 
@@ -121,7 +121,7 @@ def change_direction(new_direction):
 
 def check_collisions(snake):
 	
-	x, y = snake.coordinates[0]											# unpack the head of the snake
+	x, y = snake.coordinates[0]								# unpack the head of the snake
 	
 	# Check if left/right/top/bottom border of the game is crossed
 	if x < 0 or x >= GAME_WIDTH:
@@ -131,8 +131,8 @@ def check_collisions(snake):
 		print('GAME OVER')
 		return True
 	# Check if snake is crossing itself
-	for body_part in snake.coordinates[1:]:								# anything after the head of the snake (because it cant run into itself)
-		if x == body_part[0] and y == body_part[1]:						# Are head- and snake-coordinates overlapping?
+	for body_part in snake.coordinates[1:]:							# anything after the head of the snake (because it cant run into itself)
+		if x == body_part[0] and y == body_part[1]:					# Are head- and snake-coordinates overlapping?
 			print('GAME OVER')
 			return True
 			
@@ -148,20 +148,20 @@ def game_over():
 
 window = Tk() 
 window.title("Snake")
-window.resizable(False, False)					 						# window not resizable 
+window.resizable(False, False)					 				# window not resizable 
 
 
 score = 0 
-direction = 'down'														# starting-direction of the snake
+direction = 'down'										# starting-direction of the snake
 
 label = Label(window, text="Score:{}".format(score), font=('consolas', 13))
-label.pack()					 										# wraps up the label 
+label.pack()					 						# wraps up the label 
 
 canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
-canvas.pack() 															# wraps up the canvas 
+canvas.pack() 											# wraps up the canvas 
 
 ## Centering the game window on the screen
-window.update()															# updating the window so that it renders
+window.update()											# updating the window so that it renders
 
 	# window dimensions
 window_width = window.winfo_width()
@@ -174,11 +174,11 @@ x = int((screen_width/2) - (window_width/2))
 y = int((screen_height/2) - (window_height/2))
 
 	# Setting the geometry / Moving the window  
-window.geometry(f"{window_width}x{window_height}+{x}+{y}")				# x,y : starting point of the window
+window.geometry(f"{window_width}x{window_height}+{x}+{y}")					# x,y : starting point of the window
 
 
 ## Binding Keys : Controls
-window.bind('<Left>', lambda event: change_direction('left'))			# argument is an event : calling change_direction(), passing in'left' for the variable new_direction
+window.bind('<Left>', lambda event: change_direction('left'))					# argument is an event : calling change_direction(), passing in'left' for the variable new_direction
 window.bind('<Right>', lambda event: change_direction('right'))
 window.bind('<Up>', lambda event: change_direction('up'))
 window.bind('<Down>', lambda event: change_direction('down'))
@@ -189,9 +189,9 @@ snake = Snake()
 food = Food()
 
 
-## Calling the next_turn()-Function										# initial call at the start of the game (to get the Snake()-class-object moving)
+## Calling the next_turn()-Function								# initial call at the start of the game (to get the Snake()-class-object moving)
 next_turn(snake, food) 
 
 
-window.mainloop()														# enters the Tkinter-eventLoop
+window.mainloop()										# enters the Tkinter-eventLoop
 
